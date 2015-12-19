@@ -39,8 +39,40 @@ print_words() and print_top().
 
 import sys
 
+def clean(word):
+    w = ''
+    for c in word:
+        if c.isalpha():
+            w += c
 
-# +++your code here+++
+    return w
+
+def file_to_dictcount(filename):
+    words = dict()
+    file_text = open(filename).read().lower()
+
+    for w in file_text.split():
+        w = clean(w)
+        words[w] = words[w] + 1 if w in words.keys() else 1
+
+    return  words
+
+def print_dictwords(words):
+    for word, count in words.items():
+        print(word, count)
+
+def print_words(filename):
+    words = file_to_dictcount(filename)
+    print_dictwords(words)
+
+def print_top(filename):
+    words = dict()
+    for w, c in file_to_dictcount(filename).items():
+        if c >= 20:
+            words[w] = c
+
+    print_dictwords(words)
+
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
